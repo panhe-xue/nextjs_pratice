@@ -1,21 +1,13 @@
 const withCSS = require('@zeit/next-css')
 module.exports = withCSS({
   /* config options here */
-  cssModules: true,
-  webpack(config, options) {
-    const { dev, isServer } = options;
+  webpack(config, { buildId, dev, isServer, defaultLoaders }) {
+
     config.module.rules.push({
       test: /\.svg$/,
-      use: [
-        {
-          loader: "react-svg-loader",
-          options: {
-            jsx: true // true outputs JSX tags
-          }
-        }
-      ]
-    });
-
-    return config;
+      use: ['svg-inline-loader']
+    })
+    console.log(JSON.stringify(config))
+    return config
   }
 })
